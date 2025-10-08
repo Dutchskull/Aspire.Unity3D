@@ -94,6 +94,7 @@ public static class UnityAspireExtensions
             ResourceNotificationService notifications,
             ILogger log,
             IServiceProvider services,
+            Dictionary<string, string> environmentVariables,
             CancellationToken cancellationToken)
         {
             using IDisposable? scope = log.BeginScope("UnityProject:{ResourceName}", resource.Name);
@@ -164,6 +165,15 @@ public static class UnityAspireExtensions
 
             try
             {
+                bool variablesSendSucceeded = await controlClient
+                    .PassEnvironmentVariablesAsync(unityResource.ControlUrl, environmentVariables ?? [], cancellationToken)
+                    .ConfigureAwait(false);
+
+                if (!variablesSendSucceeded)
+                {
+                    log.LogWarning("Environment variables where not send to the unity instance.");
+                }
+
                 bool runSucceeded = await controlClient
                     .StartProjectAsync(unityResource.ControlUrl, sceneName, cancellationToken)
                     .ConfigureAwait(false);
@@ -220,11 +230,14 @@ public static class UnityAspireExtensions
                     cancellationToken)
                 .ConfigureAwait(false);
 
+            Dictionary<string, string> environmentVariables = await resource.GetEnvironmentVariableValuesAsync().ConfigureAwait(true);
+
             await StartUnityAsync(
                     resource,
                     initEvent.Notifications,
                     initEvent.Logger,
                     initEvent.Services,
+                    environmentVariables,
                     cancellationToken)
                 .ConfigureAwait(false);
         });
@@ -237,11 +250,14 @@ public static class UnityAspireExtensions
                 ResourceNotificationService notifications = context.ServiceProvider.GetRequiredService<ResourceNotificationService>();
                 ILogger<UnityProjectResource> logger = context.ServiceProvider.GetRequiredService<ILogger<UnityProjectResource>>();
 
+                Dictionary<string, string> environmentVariables = await unityResource.GetEnvironmentVariableValuesAsync().ConfigureAwait(true);
+
                 await StartUnityAsync(
                         unityResource,
                         notifications,
                         logger,
                         context.ServiceProvider,
+                        environmentVariables,
                         context.CancellationToken)
                     .ConfigureAwait(true);
 

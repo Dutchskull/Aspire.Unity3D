@@ -3,7 +3,13 @@ using Aspire.Hosting.ApplicationModel;
 
 namespace Dutchskull.Aspire.Unity3D.Hosting;
 
-public sealed class UnityProjectResource : ExecutableResource, IResourceWithEnvironment, IResourceWithArgs, IResourceWithServiceDiscovery, IResourceWithWaitSupport, IResourceWithEndpoints
+public sealed class UnityProjectResource :
+    ExecutableResource,
+    IResourceWithEnvironment,
+    IResourceWithArgs,
+    IResourceWithServiceDiscovery,
+    IResourceWithWaitSupport,
+    IResourceWithEndpoints
 {
     public UnityProjectResource(string name, string unityExePath, string projectPath, Uri controlUrl)
         : base(name, "echo 'hello-world'", ".")
