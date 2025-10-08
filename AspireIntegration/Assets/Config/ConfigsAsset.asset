@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb023e0f83e0be845a46f46c2b22c05d, type: 3}
   m_Name: ConfigsAsset
   m_EditorClassIdentifier: 
-  projectSettingsJson: 
-  externalJson: 
+  localEnvironment: 
+  externalEnvironment: 
