@@ -1,20 +1,8 @@
 using System.Collections.Generic;
-using Unity.Plastic.Newtonsoft.Json.Linq;
 using UnityEditor;
 using UnityEngine;
 
-
-[CreateAssetMenu(fileName = "ConfigsAsset", menuName = "Configs/ConfigsAsset")]
-public class ConfigsAsset : ScriptableObject
-{
-    [TextArea(4, 20)]
-    public string projectSettingsJson;
-
-    [TextArea(4, 20)]
-    public string externalJson;
-}
-
-static class ProjectConfigSettingsProvider
+public static class ProjectConfigSettingsProvider
 {
     private const string k_Path = "Project/Config";
     public const string k_AssetPath = "Assets/Config/ConfigsAsset.asset";
@@ -72,49 +60,5 @@ static class ProjectConfigSettingsProvider
             AssetDatabase.SaveAssets();
         }
         return asset;
-    }
-}
-
-public static class ConfigsEditorUtility
-{
-    private const string k_AssetPath = "Assets/Config/ConfigsAsset.asset";
-
-    public static void ApplyMergedConfig(ConfigsAsset asset = null)
-    {
-        if (asset == null)
-        {
-            asset = AssetDatabase.LoadAssetAtPath<ConfigsAsset>(k_AssetPath);
-        }
-
-        if (asset == null)
-        {
-            return;
-        }
-
-        string merged = MergeJson(asset.projectSettingsJson, asset.externalJson);
-        Microsoft.Extensions.Configuration.IConfigurationRoot cfg = ConfigProvider.BuildFromJson(merged);
-        ConfigProvider.ReplaceConfiguration(cfg);
-    }
-
-    private static string MergeJson(string baseJson, string overrideJson)
-    {
-        if (string.IsNullOrWhiteSpace(baseJson))
-        {
-            baseJson = "{}";
-        }
-
-        if (string.IsNullOrWhiteSpace(overrideJson))
-        {
-            return baseJson;
-        }
-
-        JObject baseJ = JObject.Parse(baseJson);
-        JObject overJ = JObject.Parse(overrideJson);
-        baseJ.Merge(overJ, new JsonMergeSettings
-        {
-            MergeArrayHandling = MergeArrayHandling.Replace,
-            MergeNullValueHandling = MergeNullValueHandling.Merge
-        });
-        return baseJ.ToString();
     }
 }
