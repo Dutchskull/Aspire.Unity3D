@@ -2,18 +2,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-
-[CreateAssetMenu(fileName = "ConfigsAsset", menuName = "Configs/ConfigsAsset")]
-public class ConfigsAsset : ScriptableObject
-{
-    [TextArea(4, 20)]
-    public string localEnvironment;
-
-    [TextArea(4, 20)]
-    public string externalEnvironment;
-}
-
-internal static class ProjectConfigSettingsProvider
+public static class ProjectConfigSettingsProvider
 {
     private const string k_Path = "Project/Config";
     public const string k_AssetPath = "Assets/Config/ConfigsAsset.asset";

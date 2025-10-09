@@ -102,6 +102,12 @@
       "source": "embedded",
       "dependencies": {}
     },
+    "nl.dutchskull.configuration-manager": {
+      "version": "file:ConfigurationManager",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,
