@@ -30,7 +30,7 @@ dotnet add package Dutchskull.Aspire.Unity
 Open your Unity project and add the following Git-based dependency:
 
 ```text
-https://github.com/Dutchskull/Aspire.Unity3D.git?path=/AspireIntegration/Packages/AspireIntegration
+https://github.com/Dutchskull/Aspire.Unity3D.git?path=/AspireIntegration/Packages/Unity.Aspire
 ```
 
 Here’s how you could present it in the README with the updated signature:
