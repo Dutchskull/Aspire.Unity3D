@@ -1,3 +1,5 @@
+using System;
+
 internal class ConfigCommand : ICommand
 {
     public string Execute(string argument)
@@ -9,8 +11,7 @@ internal class ConfigCommand : ICommand
 
         try
         {
-            ConfigsAsset asset = AssetDatabase.LoadAssetAtPath<ConfigsAsset>(ProjectConfigSettingsProvider.k_AssetPath);
-            asset.externalEnvironment = argument;
+            ConfigSourceRegistry.RegisterSource(builder => builder.AddJson(argument), "Aspire");
         }
         catch (Exception ex)
         {

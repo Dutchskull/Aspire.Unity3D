@@ -2,7 +2,7 @@
     "name": "AspireIntegration",
     "rootNamespace": "",
     "references": [
-        "GUID:1ef3698c9be4be4c4a56c148bf908e7e"
+        "Unity.Configuration.Runtime"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
