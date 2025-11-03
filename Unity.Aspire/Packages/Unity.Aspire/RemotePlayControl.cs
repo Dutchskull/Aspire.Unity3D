@@ -1,4 +1,6 @@
+using Microsoft.Extensions.Configuration;
 using System;
+using System.IO;
 using System.Net;
 using UnityEditor;
 using UnityEngine;
@@ -15,6 +17,18 @@ public static class RemotePlayControl
         EditorApplication.quitting += DisposeServer;
         AssemblyReloadEvents.beforeAssemblyReload += OnBeforeAssemblyReload;
         AssemblyReloadEvents.afterAssemblyReload += OnAfterAssemblyReload;
+
+        ConfigSourceRegistry.RegisterSource(builder =>
+        {
+            string path = Application.persistentDataPath + "/aspire.json";
+            if (!File.Exists(path))
+            {
+                File.WriteAllText(path, "{}");
+            }
+
+            builder.AddJsonFile(path);
+
+        }, "Aspire");
     }
 
     public static void DisposeServer()

@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using UnityEngine;
 
 internal class ConfigCommand : ICommand
 {
@@ -11,7 +13,7 @@ internal class ConfigCommand : ICommand
 
         try
         {
-            ConfigSourceRegistry.RegisterSource(builder => builder.AddJson(argument), "Aspire");
+            File.WriteAllText(Application.persistentDataPath + "/aspire.json", argument);
         }
         catch (Exception ex)
         {

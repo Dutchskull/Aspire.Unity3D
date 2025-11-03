@@ -68,11 +68,11 @@
       "dependencies": {}
     },
     "nl.dutchskull.unity-configuration": {
-      "version": "https://github.com/Dutchskull/Unity.Configuration.git?path=/Unity.Configuration/Packages/Unity.Configuration",
+      "version": "https://github.com/Dutchskull/Unity.Configuration.git?path=/Unity.Configuration/Packages/Unity.Configuration#feature/unity-event-save",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "e05cf848434e8008251a8a63e5b00b679a928a16"
+      "hash": "219079f023373b80b0a16cf51a111e2406896765"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
