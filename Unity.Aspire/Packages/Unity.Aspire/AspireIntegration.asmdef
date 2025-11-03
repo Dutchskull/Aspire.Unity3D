@@ -1,0 +1,16 @@
+{
+    "name": "AspireIntegration",
+    "rootNamespace": "",
+    "references": [
+        "Unity.Configuration.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

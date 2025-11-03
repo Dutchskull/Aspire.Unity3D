@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<ItemGroup>
+		<ProjectReference Include="..\Dutchskull.Aspire.AppHost.Unity3D.ServiceDefaults\Dutchskull.Aspire.Unity3D.ServiceDefaults.csproj" />
+	</ItemGroup>
+
+</Project>

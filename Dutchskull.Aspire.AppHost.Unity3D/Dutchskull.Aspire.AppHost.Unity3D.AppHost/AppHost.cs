@@ -1,11 +1,19 @@
 using Dutchskull.Aspire.Unity3D.Hosting;
+using Projects;
 
 IDistributedApplicationBuilder builder = DistributedApplication.CreateBuilder(args);
 
-IResourceBuilder<UnityProjectResource> unity = builder.AddUnityProject("game", "..\\..\\AspireIntegration", 1, customUnityInstallRoot: "E:\\Unity");
+IResourceBuilder<ProjectResource> api = builder
+    .AddProject<Dutchskull_Aspire_Apphost_Unity3D_Api>("api");
 
-IResourceBuilder<ContainerResource> container = builder.AddContainer("test", "docker/welcome-to-docker");
+IResourceBuilder<UnityProjectResource> unity = builder
+    .AddUnityProject("game", "..\\..\\Unity.Aspire", 1, customUnityInstallRoot: "E:\\Unity")
+    .WithEnvironment("Test", "Value")
+    .WithReference(api)
+    .WaitFor(api);
 
-container.WaitFor(unity);
+builder
+    .AddContainer("test", "docker/welcome-to-docker")
+    .WaitFor(unity);
 
 builder.Build().Run();
