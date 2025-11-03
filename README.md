@@ -13,6 +13,7 @@ Currently, the integration focuses on **starting and stopping Unity** as part of
 ## ✨ Features
 
 * 🔗 Add a Unity3D project to your Aspire AppHost.
+* 🗃️ Passing **environment variables** into Unity.
 * ▶️ Automatically start Unity when the AppHost starts.
 * ⏹ Stop Unity when the AppHost stops.
 * 🛠 Future support planned for environment variable injection and richer integration.
@@ -27,9 +28,11 @@ dotnet add package Dutchskull.Aspire.Unity
 
 ### 2. Add the Unity side via Unity’s Package Manager
 
-Open your Unity project and add the following Git-based dependency:
+Open your Unity project and add the following Git-based dependencies in this order:
 
 ```text
+https://github.com/Dutchskull/Unity.Configuration.git?path=/Unity.Configuration/Packages/Unity.Configuration
+
 https://github.com/Dutchskull/Aspire.Unity3D.git?path=/AspireIntegration/Packages/Unity.Aspire
 ```
 
@@ -86,7 +89,6 @@ public static IResourceBuilder<UnityProjectResource> AddUnityProject(
 
 Planned improvements include:
 
-* Passing **environment variables** into Unity.
 * Richer communication between Aspire and Unity (logs).
 
 ## 🤝 Contributing
