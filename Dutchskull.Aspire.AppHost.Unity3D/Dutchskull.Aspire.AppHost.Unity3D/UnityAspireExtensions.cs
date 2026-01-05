@@ -230,14 +230,20 @@ public static class UnityAspireExtensions
                     cancellationToken)
                 .ConfigureAwait(false);
 
-            Dictionary<string, string> environmentVariables = await resource.GetEnvironmentVariableValuesAsync().ConfigureAwait(true);
+            DistributedApplicationExecutionContext executionContext = builder.ExecutionContext;
+
+            IExecutionConfigurationResult execResult = await ExecutionConfigurationBuilder
+                .Create(resource)
+                .WithEnvironmentVariablesConfig()
+                .BuildAsync(executionContext, cancellationToken: cancellationToken)
+                .ConfigureAwait(false);
 
             await StartUnityAsync(
                     resource,
                     initEvent.Notifications,
                     initEvent.Logger,
                     initEvent.Services,
-                    environmentVariables,
+                    execResult.EnvironmentVariables.ToDictionary(),
                     cancellationToken)
                 .ConfigureAwait(false);
         });
@@ -250,16 +256,20 @@ public static class UnityAspireExtensions
                 ResourceNotificationService notifications = context.ServiceProvider.GetRequiredService<ResourceNotificationService>();
                 ILogger<UnityProjectResource> logger = context.ServiceProvider.GetRequiredService<ILogger<UnityProjectResource>>();
 
-                Dictionary<string, string> environmentVariables = await unityResource.GetEnvironmentVariableValuesAsync().ConfigureAwait(true);
+                IExecutionConfigurationResult execResult = await ExecutionConfigurationBuilder
+                    .Create(unityResource)
+                    .WithEnvironmentVariablesConfig()
+                    .BuildAsync(builder.ExecutionContext, cancellationToken: context.CancellationToken)
+                    .ConfigureAwait(false);
 
                 await StartUnityAsync(
                         unityResource,
                         notifications,
                         logger,
                         context.ServiceProvider,
-                        environmentVariables,
+                        execResult.EnvironmentVariables.ToDictionary(),
                         context.CancellationToken)
-                    .ConfigureAwait(true);
+                    .ConfigureAwait(false);
 
                 return new ExecuteCommandResult { Success = true };
             },
